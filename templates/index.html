@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="static/styles.css"> -->
+    <meta charset="UTF-8">
+    <title>
+        TODO APP
+    </title>
+</head>
+
+<body>
+    <h1>TASKS</h1>
+    
+    <ul>
+        {% for task in tasks%}
+        <li>
+            <span {%if task['done'] %} style="text-decoration: line-through" {%endif%}>{{ task['dopoint'] }}</span>
+            <a href="{{ url_for('check', index=loop.index0) }}">{% if task['done'] %}
+            UNMARK
+            {% else %}
+            MARK
+            {% endif %}</a>
+            <a href="{{ url_for('edit', index=loop.index0) }}">EDIT</a>
+            <a href="{{ url_for('delete', index=loop.index0) }}">DELETE</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <form action="{{ url_for('add')}}" method="post">
+        <input type="text" name="task">
+        <button type="submit">ADD TASK</button>
+    </form>
+</body>
+
+</html>
